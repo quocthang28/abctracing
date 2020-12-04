@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "751581432105",
+    "firebase_url": "https://textreg-c5645.firebaseio.com",
+    "project_id": "textreg-c5645",
+    "storage_bucket": "textreg-c5645.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:751581432105:android:127619fab9ca9674718f38",
+        "android_client_info": {
+          "package_name": "com.thang.text_reg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "751581432105-f2eno4b04qbdcc5ufj3kdps9hearlt6b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaQ9bRm4Jxdbi9xLSNq-HHUtnUI7ysqNg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "751581432105-f2eno4b04qbdcc5ufj3kdps9hearlt6b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
