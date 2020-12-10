@@ -6,6 +6,7 @@ import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ProcessCanvasService {
+
   String _generateFileName() {
     DateTime dateTime = DateTime.now();
     String fileName = 'Temp_' +
@@ -68,12 +69,16 @@ class ProcessCanvasService {
     final VisionText visionText =
         await textRecognizer.processImage(visionImage);
 
+    // final TextRecognizer cloudTextRecognizer =
+    //     FirebaseVision.instance.cloudTextRecognizer();
+    // final VisionText visionText =
+    //     await cloudTextRecognizer.processImage(visionImage);
+
     String result = '';
 
-    for (TextBlock block in visionText.blocks) 
-      for (TextLine line in block.lines) 
-        for (TextElement element in line.elements) 
-          result += element.text;
+    for (TextBlock block in visionText.blocks)
+      for (TextLine line in block.lines)
+        for (TextElement element in line.elements) result += element.text;
     //print(result);
     return result;
   }

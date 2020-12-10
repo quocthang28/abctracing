@@ -5,26 +5,25 @@ import 'package:text_reg/services/word_game.dart';
 import 'package:text_reg/components/canvas.dart';
 
 class WordGameScreen extends StatefulWidget {
-  //math game sceen
-  WordGame get wordGame => GetIt.I<WordGame>();
 
   @override
   _WordGameScreenState createState() => _WordGameScreenState();
 }
 
 class _WordGameScreenState extends State<WordGameScreen> {
+  WordGame get wordGame => GetIt.I<WordGame>();
   int _numberOfQuestions = 3; //TODO: implement sharedpreferences (user setting)
 
   void checkAnswer(String answer) {
     //callback
-    if (widget.wordGame.checkAnswer(answer)) {
+    if (wordGame.checkAnswer(answer)) {
       print('correct');
       setState(() {
-        widget.wordGame.currentQuestionIndex++;
+        wordGame.currentQuestionIndex++;
       });
     } else
       print('wrong');
-    if (widget.wordGame.isFinished()) {
+    if (wordGame.isFinished()) {
       Alert(
         context: context,
         title: 'Finished!',
@@ -34,9 +33,9 @@ class _WordGameScreenState extends State<WordGameScreen> {
             child: Text('Reset'),
             onPressed: () {
               setState(() {
-                widget.wordGame.resetGame();
+                wordGame.resetGame();
               });
-              widget.wordGame.generateWordQuestions(_numberOfQuestions);
+              wordGame.generateWordQuestions(_numberOfQuestions);
               Navigator.pop(context);
             },
           )
@@ -51,8 +50,8 @@ class _WordGameScreenState extends State<WordGameScreen> {
   @override
   void initState() {
     super.initState();
-    widget.wordGame.resetGame();
-    widget.wordGame.generateWordQuestions(_numberOfQuestions);
+    wordGame.resetGame();
+    wordGame.generateWordQuestions(_numberOfQuestions);
   }
 
   @override
@@ -64,7 +63,7 @@ class _WordGameScreenState extends State<WordGameScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               //TODO: Stack CANVAS & HINT here
-              TextWidget(widget.wordGame.getWordQuestion()),
+              QuestionWidget(wordGame.getWordQuestion()),
               Canvas(checkAnswer: checkAnswer),
             ],
           ),
@@ -74,9 +73,9 @@ class _WordGameScreenState extends State<WordGameScreen> {
   }
 }
 
-class TextWidget extends StatelessWidget {
+class QuestionWidget extends StatelessWidget {
   //maybe video, image...
-  TextWidget(this.result);
+  QuestionWidget(this.result);
 
   final String result;
 

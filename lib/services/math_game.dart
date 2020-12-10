@@ -4,6 +4,7 @@ enum Operation { ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION }
 
 class MathQuestion {
   MathQuestion({this.num1, this.num2, this.result, this.operation});
+  
   final int num1;
   final int num2;
   final int result;

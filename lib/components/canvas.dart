@@ -10,16 +10,16 @@ class Canvas extends StatefulWidget {
 
   //final Function(String) checkAnswer; // callback
   final ValueChanged<String> checkAnswer;
-  final bool hint = false;
-  ProcessCanvasService get pcs => GetIt.I<ProcessCanvasService>();
 
   @override
   _CanvasState createState() => _CanvasState();
 }
 
 class _CanvasState extends State<Canvas> {
+  ProcessCanvasService get pcs => GetIt.I<ProcessCanvasService>();
   List<Offset> _points = [];
   String _answer;
+  bool hint = false;
 
   void _deleteCacheDir() async {
     var cacheDir = await getTemporaryDirectory();
@@ -74,7 +74,7 @@ class _CanvasState extends State<Canvas> {
                       Container(
                         width: kCanvasSize,
                         height: kCanvasSize,
-                        decoration: widget.hint
+                        decoration: hint
                             ? BoxDecoration(
                                 image: DecorationImage(
                                   image: AssetImage(
@@ -108,7 +108,7 @@ class _CanvasState extends State<Canvas> {
             FlatButton(
               color: Colors.blue,
               onPressed: () async {
-                _answer = await widget.pcs.getFireBaseVisionResult(_points);
+                _answer = await pcs.getFireBaseVisionResult(_points);
                 widget.checkAnswer(_answer);
                 print(_answer);
                 _clearCanvas();

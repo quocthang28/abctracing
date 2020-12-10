@@ -24,3 +24,4 @@ final Paint kWhitePaint = Paint()
 final kBackgroundPaint = Paint()..color = kBrushBlack;
 
 const kCacheDirectoryName = 'cachedImages';
+

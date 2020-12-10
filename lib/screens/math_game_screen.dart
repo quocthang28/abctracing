@@ -5,26 +5,25 @@ import 'package:text_reg/services/math_game.dart';
 import 'package:text_reg/components/canvas.dart';
 
 class MathGameScreen extends StatefulWidget {
-  //math game sceen
-  MathGame get mathGame => GetIt.I<MathGame>();
 
   @override
   _MathGameScreenState createState() => _MathGameScreenState();
 }
 
 class _MathGameScreenState extends State<MathGameScreen> {
+  MathGame get mathGame => GetIt.I<MathGame>();
   int _numberOfQuestions =
       10; //TODO: implement sharedpreferences (user setting)
 
   void checkAnswer(String answer) {
-    if (widget.mathGame.checkAnswer(answer)) {
+    if (mathGame.checkAnswer(answer)) {
       print('correct');
       setState(() {
-        widget.mathGame.currentQuestionIndex++;
+        mathGame.currentQuestionIndex++;
       });
     } else
       print('wrong');
-    if (widget.mathGame.isFinished()) {
+    if (mathGame.isFinished()) {
       Alert(
         context: context,
         title: 'Finished!',
@@ -34,9 +33,9 @@ class _MathGameScreenState extends State<MathGameScreen> {
             child: Text('Reset'),
             onPressed: () {
               setState(() {
-                widget.mathGame.resetGame();
+                mathGame.resetGame();
               });
-              widget.mathGame.generateMathQuestions(_numberOfQuestions);
+              mathGame.generateMathQuestions(_numberOfQuestions);
               Navigator.pop(context);
             },
           )
@@ -51,8 +50,8 @@ class _MathGameScreenState extends State<MathGameScreen> {
   @override
   void initState() {
     super.initState();
-    widget.mathGame.resetGame();
-    widget.mathGame.generateMathQuestions(_numberOfQuestions);
+    mathGame.resetGame();
+    mathGame.generateMathQuestions(_numberOfQuestions);
   }
 
   @override
@@ -63,7 +62,7 @@ class _MathGameScreenState extends State<MathGameScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              TextWidget(widget.mathGame.getMathQuestion()),
+              QuestionWidget(mathGame.getMathQuestion()),
               Canvas(checkAnswer: checkAnswer),
             ],
           ),
@@ -73,17 +72,17 @@ class _MathGameScreenState extends State<MathGameScreen> {
   }
 }
 
-class TextWidget extends StatelessWidget {
+class QuestionWidget extends StatelessWidget {
   //maybe video, image... (move to components folder)
-  TextWidget(this.result);
+  QuestionWidget(this.question);
 
-  final String result;
+  final String question;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Text(
-        result,
+        question,
         style: TextStyle(fontSize: 30.0),
       ),
     );

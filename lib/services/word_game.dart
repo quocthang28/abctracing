@@ -3,9 +3,9 @@ import 'dart:math';
 class WordQuestion {
   WordQuestion({this.word, this.missingLetter, this.unfinishedWord});
 
-  String word;
-  String missingLetter;
-  String unfinishedWord;
+  final String word;
+  final String missingLetter;
+  final String unfinishedWord;
 }
 
 Random _ran = Random();
