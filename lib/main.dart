@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/menu',
       routes: {
         '/menu': (context) => Menu(),
-        '/mathgame': (context) => MathGameScreen(),
+        '/mathgame': (context) => MGS(),
         '/wordgame': (context) => WordGameScreen()
       },
     );

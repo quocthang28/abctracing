@@ -1,31 +1,28 @@
 import 'dart:math';
-
-enum Operation { ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION }
+import 'package:flutter/foundation.dart';
 
 class MathQuestion {
-  MathQuestion({this.num1, this.num2, this.result, this.operation});
-  
-  final int num1;
-  final int num2;
-  final int result;
-  final Operation operation;
+  MathQuestion({this.question, this.answer});
+
+  final String question;
+  final int answer;
 }
 
 Random _ran = Random();
 int _randomInRange(int min, int max) => min + _ran.nextInt(max - min);
 
-class MathGame {
+class MathGame extends ChangeNotifier {
   List<MathQuestion> _mathQuestions = [];
   int _currentQuestionIndex = 0;
-
+  String _currentQuestion;
   // ignore: unnecessary_getters_setters
   int get currentQuestionIndex => _currentQuestionIndex;
+  String get currentQuestion => _currentQuestion;
 
   // ignore: unnecessary_getters_setters
   set currentQuestionIndex(int currentQuestionIndex) {
     _currentQuestionIndex = currentQuestionIndex;
   }
-  
 
   void generateMathQuestions(int numOfQuestions) {
     int operation;
@@ -43,10 +40,8 @@ class MathGame {
       }
       if (operation == 0) {
         _mathQuestions.add(MathQuestion(
-            num1: num1,
-            num2: num2,
-            result: num1 + num2,
-            operation: Operation.ADDITION));
+            question: '$num1 + $num2 = ?',
+            answer: num1 + num2)); // _mathQuestions.add(MathQuestion(
       } else if (operation == 1) {
         if (num1 < num2) {
           temp = num1;
@@ -54,18 +49,14 @@ class MathGame {
           num2 = temp;
         }
         _mathQuestions.add(MathQuestion(
-            num1: num1,
-            num2: num2,
-            result: num1 - num2,
-            operation: Operation.SUBTRACTION));
+            question: '$num1 - $num2 = ?',
+            answer: num1 - num2)); // _mathQuestions.add(MathQuestion(
       } else if (operation == 2) {
         if (num1 == 0) num1 = _randomInRange(1, 10);
         if (num2 == 0) num2 = _randomInRange(1, 10);
         _mathQuestions.add(MathQuestion(
-            num1: num1,
-            num2: num2,
-            result: num1 * num2,
-            operation: Operation.MULTIPLICATION));
+            question: '$num1 × $num2 = ?',
+            answer: num1 * num2)); // _mathQuestions.add(MathQuestion(
       } else if (operation == 3) {
         num1 = _randomInRange(1, 10);
         num2 = _randomInRange(1, 10);
@@ -74,36 +65,23 @@ class MathGame {
           num2 = _randomInRange(1, 10);
         }
         _mathQuestions.add(MathQuestion(
-            num1: num1,
-            num2: num2,
-            result: num1 ~/ num2,
-            operation: Operation.DIVISION));
+            question: '$num1 ÷ $num2 = ?',
+            answer: num1 ~/ num2)); // _mathQuestions.add(MathQuestion(
       }
     }
+    _currentQuestion = _mathQuestions.first.question;
   }
 
-  String getMathQuestion() {
-    if (_currentQuestionIndex == _mathQuestions.length)
-      return 'Done!';
-    else {
-      String num1 = _mathQuestions[_currentQuestionIndex].num1.toString();
-      String num2 = _mathQuestions[_currentQuestionIndex].num2.toString();
-      String operation =
-          _mathQuestions[_currentQuestionIndex].operation == Operation.ADDITION
-              ? '+'
-              : _mathQuestions[_currentQuestionIndex].operation ==
-                      Operation.SUBTRACTION
-                  ? '-'
-                  : _mathQuestions[_currentQuestionIndex].operation ==
-                          Operation.MULTIPLICATION
-                      ? '×'
-                      : '÷';
-      return '$num1 $operation $num2 = ?';
-    }
+  void getNextQuestion() {
+    if (_currentQuestionIndex == _mathQuestions.length) {
+      _currentQuestion = 'Done!';
+    } else
+      _currentQuestion = _mathQuestions[_currentQuestionIndex].question;
+    notifyListeners();
   }
 
   String processAnswer(String answer) {
-    String res = answer.replaceAll(new RegExp(r'[^0-9]'), '');
+    String ans = answer.replaceAll(new RegExp(r'[^0-9]'), '');
     switch (answer) {
       case 'O':
         return '0';
@@ -120,22 +98,23 @@ class MathGame {
         return '5';
         break;
       default:
-        return res;
+        return ans;
         break;
     }
   }
 
   bool checkAnswer(String answer) {
-    return _mathQuestions[_currentQuestionIndex].result.toString() ==
+    return _mathQuestions[_currentQuestionIndex].answer.toString() ==
         processAnswer(answer);
   }
 
-  bool isFinished(){
+  bool isFinished() {
     return _currentQuestionIndex == _mathQuestions.length;
   }
 
   void resetGame() {
     _currentQuestionIndex = 0;
     _mathQuestions.clear();
+    notifyListeners();
   }
 }

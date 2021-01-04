@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
+
 class WordQuestion {
   WordQuestion({this.word, this.missingLetter, this.unfinishedWord});
 
@@ -10,7 +12,7 @@ class WordQuestion {
 
 Random _ran = Random();
 
-class WordGame {
+class WordGame extends ChangeNotifier {
   List<String> _words = [
     'Apple',
     'Orange',
@@ -39,9 +41,11 @@ class WordGame {
   ];
   Set<WordQuestion> _wordQuestions = {};
   int _currentQuestionIndex = 0;
+  String _currentQuestion;
 
   // ignore: unnecessary_getters_setters
   int get currentQuestionIndex => _currentQuestionIndex;
+  String get currentQuestion => _currentQuestion;
 
   // ignore: unnecessary_getters_setters
   set currentQuestionIndex(int currentQuestionIndex) {
@@ -66,9 +70,21 @@ class WordGame {
     }
   }
 
-  String getWordQuestion() {
+  // void getWordQuestion() {
+  //   if (_currentQuestionIndex == _wordQuestions.length)
+  //     _currentQuestion = 'Done';
+  //   //return 'Done!';
+  //   else {
+  //     _currentQuestion =
+  //         _wordQuestions.elementAt(_currentQuestionIndex).unfinishedWord;
+  //     //return _wordQuestions.elementAt(_currentQuestionIndex).unfinishedWord;
+  //   }
+  //   notifyListeners();
+  // }
+
+    String getWordQuestion() {
     if (_currentQuestionIndex == _wordQuestions.length)
-      return 'Done!';
+    return 'Done!';
     else {
       return _wordQuestions.elementAt(_currentQuestionIndex).unfinishedWord;
     }

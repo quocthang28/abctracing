@@ -6,7 +6,6 @@ import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ProcessCanvasService {
-
   String _generateFileName() {
     DateTime dateTime = DateTime.now();
     String fileName = 'Temp_' +
@@ -45,7 +44,7 @@ class ProcessCanvasService {
     }
 
     final picture = recorder.endRecording();
-    final img = await picture.toImage(1000, 1000);
+    final img = await picture.toImage(800, 800);
     final imgBytes = await img.toByteData(format: ImageByteFormat.png);
     Uint8List pngUint8List = imgBytes.buffer.asUint8List();
 

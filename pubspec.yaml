@@ -27,9 +27,9 @@ dependencies:
   firebase_ml_vision: ^0.9.9
   get_it: ^5.0.1
   path_provider: ^1.6.24
+  provider: ^4.3.2+3
   rflutter_alert: ^1.1.0
   shared_preferences: ^0.5.12+4
-
 
 dev_dependencies:
   flutter_test:

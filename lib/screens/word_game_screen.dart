@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:text_reg/services/word_game.dart';
 import 'package:text_reg/components/canvas.dart';
+
+class WGS extends ChangeNotifierProvider {
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => WordGame(),
+      child: WordGameScreen(),
+    );
+  }
+}
 
 class WordGameScreen extends StatefulWidget {
 
