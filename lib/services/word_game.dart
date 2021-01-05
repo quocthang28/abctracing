@@ -3,9 +3,8 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 
 class WordQuestion {
-  WordQuestion({this.word, this.missingLetter, this.unfinishedWord});
+  WordQuestion({this.missingLetter, this.unfinishedWord});
 
-  final String word;
   final String missingLetter;
   final String unfinishedWord;
 }
@@ -61,33 +60,27 @@ class WordGame extends ChangeNotifier {
       word = _words[Random().nextInt(_words.length)];
       position = _ran.nextInt(word.length);
       missingLetter = word.substring(position, position + 1);
+      while (missingLetter == 'o' || missingLetter == 'O' || missingLetter == 'g') {
+        position = _ran.nextInt(word.length);
+        missingLetter = word.substring(position, position + 1);
+      }
       unfishedWord =
           word.substring(0, position) + '_' + word.substring(position + 1);
       _wordQuestions.add(WordQuestion(
-          word: word,
-          missingLetter: missingLetter,
-          unfinishedWord: unfishedWord));
+          missingLetter: missingLetter.toUpperCase(),
+          unfinishedWord: unfishedWord.toUpperCase()));
     }
+    _currentQuestion = _wordQuestions.first.unfinishedWord;
   }
 
-  // void getWordQuestion() {
-  //   if (_currentQuestionIndex == _wordQuestions.length)
-  //     _currentQuestion = 'Done';
-  //   //return 'Done!';
-  //   else {
-  //     _currentQuestion =
-  //         _wordQuestions.elementAt(_currentQuestionIndex).unfinishedWord;
-  //     //return _wordQuestions.elementAt(_currentQuestionIndex).unfinishedWord;
-  //   }
-  //   notifyListeners();
-  // }
-
-    String getWordQuestion() {
+  void getWordQuestion() {
     if (_currentQuestionIndex == _wordQuestions.length)
-    return 'Done!';
+      _currentQuestion = 'Done';
     else {
-      return _wordQuestions.elementAt(_currentQuestionIndex).unfinishedWord;
+      _currentQuestion =
+          _wordQuestions.elementAt(_currentQuestionIndex).unfinishedWord;
     }
+    notifyListeners();
   }
 
   bool checkAnswer(String answer) {
@@ -105,5 +98,6 @@ class WordGame extends ChangeNotifier {
   void resetGame() {
     _currentQuestionIndex = 0;
     _wordQuestions.clear();
+    notifyListeners();
   }
 }

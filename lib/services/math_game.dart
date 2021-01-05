@@ -41,7 +41,7 @@ class MathGame extends ChangeNotifier {
       if (operation == 0) {
         _mathQuestions.add(MathQuestion(
             question: '$num1 + $num2 = ?',
-            answer: num1 + num2)); // _mathQuestions.add(MathQuestion(
+            answer: num1 + num2)); 
       } else if (operation == 1) {
         if (num1 < num2) {
           temp = num1;
@@ -50,13 +50,13 @@ class MathGame extends ChangeNotifier {
         }
         _mathQuestions.add(MathQuestion(
             question: '$num1 - $num2 = ?',
-            answer: num1 - num2)); // _mathQuestions.add(MathQuestion(
+            answer: num1 - num2)); 
       } else if (operation == 2) {
         if (num1 == 0) num1 = _randomInRange(1, 10);
         if (num2 == 0) num2 = _randomInRange(1, 10);
         _mathQuestions.add(MathQuestion(
             question: '$num1 × $num2 = ?',
-            answer: num1 * num2)); // _mathQuestions.add(MathQuestion(
+            answer: num1 * num2)); 
       } else if (operation == 3) {
         num1 = _randomInRange(1, 10);
         num2 = _randomInRange(1, 10);
@@ -66,7 +66,7 @@ class MathGame extends ChangeNotifier {
         }
         _mathQuestions.add(MathQuestion(
             question: '$num1 ÷ $num2 = ?',
-            answer: num1 ~/ num2)); // _mathQuestions.add(MathQuestion(
+            answer: num1 ~/ num2)); 
       }
     }
     _currentQuestion = _mathQuestions.first.question;

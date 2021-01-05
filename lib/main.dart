@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:text_reg/screens/number_screen.dart';
 import 'package:text_reg/utils/service_locator.dart';
 import 'package:text_reg/screens/math_game_screen.dart';
 import 'package:text_reg/screens/word_game_screen.dart';
@@ -28,7 +29,10 @@ class MyApp extends StatelessWidget {
       routes: {
         '/menu': (context) => Menu(),
         '/mathgame': (context) => MGS(),
-        '/wordgame': (context) => WordGameScreen()
+        '/wordgame': (context) => WGS(),
+        '/number' : (context) => NumberScreen()
+        //'/alphabetupper'
+        //'/alphabetlower'
       },
     );
   }

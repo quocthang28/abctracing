@@ -19,6 +19,11 @@ class Menu extends StatelessWidget {
                 label: Text('Find Missing Letter'),
                 icon: Icon(Icons.navigate_next),
               ),
+              FlatButton.icon(
+                onPressed: () => Navigator.pushNamed(context, '/number'),
+                label: Text('Number'),
+                icon: Icon(Icons.navigate_next),
+              ),
             ],
           ),
         ),

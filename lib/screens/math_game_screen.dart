@@ -20,14 +20,13 @@ class MathGameScreen extends StatefulWidget {
 }
 
 class _MathGameScreenState extends State<MathGameScreen> {
-  int _numberOfQuestions =
-      3; //TODO: implement sharedpreferences (user setting)
+  int _numberOfQuestions = 3; //TODO: implement sharedpreferences (user setting)
 
   @override
   Widget build(BuildContext context) {
     MathGame mathGame = Provider.of<MathGame>(context, listen: false);
     mathGame.generateMathQuestions(_numberOfQuestions);
-    
+
     print('build screen');
 
     void checkAnswer(String answer) {
