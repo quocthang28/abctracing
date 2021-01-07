@@ -3,8 +3,9 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 
 class WordQuestion {
-  WordQuestion({this.missingLetter, this.unfinishedWord});
+  WordQuestion({this.word, this.missingLetter, this.unfinishedWord});
 
+  final String word;
   final String missingLetter;
   final String unfinishedWord;
 }
@@ -14,43 +15,88 @@ Random _ran = Random();
 class WordGame extends ChangeNotifier {
   List<String> _words = [
     'Apple',
-    'Orange',
-    'Car',
-    'Hand',
-    'Bottle',
-    'Window',
-    'Truck',
-    'Book',
-    'Rabbit',
-    'Dog',
-    'House',
-    'Picture',
     'Animal',
-    'Music',
-    'Ball',
-    'Girl',
+    'Apologies',
+    'Book',
     'Bird',
     'Bicycle',
+    'Chess',
     'Chicken',
     'Chair',
-    'Table',
+    'Car',
+    'Dog',
     'Door',
-    'Phone',
     'Doctor',
-    'Nurse',
     'Engineer',
+    'Eye',
     'Fire',
-    'Water',
+    'Fan',
+    'Food',
+    'Girl',
+    'Gas',
+    'Gun',
+    'House',
+    'Horse',
+    'Hill',
+    'Ion',
+    'Iphone',
+    'Idea',
+    'Jerry',
+    'Juice',
+    'Judge',
+    'Kite',
+    'Kindness',
+    'KungFu',
+    'Left',
+    'Lamp',
+    'Music',
+    'Machine',
+    'Math',
+    'Nurse',
+    'Nancy',
+    'Number',
+    'Orange',
+    'Organization',
+    'Omnitrix',
+    'Phone',
+    'Pen',
+    'Quiz',
+    'Quote',
+    'Rabbit',
+    'Rat',
+    'Run',
     'Shirt',
-    //'Floccinaucinihilipilification'
+    'Shark',
+    'Sun',
+    'Shout'
+        'Table',
+    'Truck',
+    'Umbrella',
+    'Utility',
+    'Vase',
+    'Vehicle',
+    'Van',
+    'Window',
+    'Water',
+    'Xenon',
+    'Yarn',
+    'Yacht',
+    'Sun',
+    'Zues',
+    'Zombie',
+    'Zone',
   ];
+  //List _words = ['Food'];
+
   Set<WordQuestion> _wordQuestions = {};
   int _currentQuestionIndex = 0;
   String _currentQuestion;
+  String _currentWord;
 
   // ignore: unnecessary_getters_setters
   int get currentQuestionIndex => _currentQuestionIndex;
   String get currentQuestion => _currentQuestion;
+  String get currentWord => _currentWord;
 
   // ignore: unnecessary_getters_setters
   set currentQuestionIndex(int currentQuestionIndex) {
@@ -63,20 +109,25 @@ class WordGame extends ChangeNotifier {
     String unfishedWord;
     int position;
     while (_wordQuestions.length < numOfQuestions) {
-      word = _words[Random().nextInt(_words.length)];
-      position = _ran.nextInt(word.length);
-      missingLetter = word.substring(position, position + 1);
-      while (missingLetter == 'o' || missingLetter == 'O') {
+      word = _words[_ran.nextInt(_words.length)];
+      if (!_wordQuestions.contains(word)) {
+        print(word);
         position = _ran.nextInt(word.length);
         missingLetter = word.substring(position, position + 1);
+        while (missingLetter == 'o' || missingLetter == 'O') {
+          position = _ran.nextInt(word.length);
+          missingLetter = word.substring(position, position + 1);
+        }
+        unfishedWord =
+            word.substring(0, position) + '_' + word.substring(position + 1);
+        _wordQuestions.add(WordQuestion(
+            word: word,
+            missingLetter: missingLetter.toUpperCase(),
+            unfinishedWord: unfishedWord.toUpperCase()));
       }
-      unfishedWord =
-          word.substring(0, position) + '_' + word.substring(position + 1);
-      _wordQuestions.add(WordQuestion(
-          missingLetter: missingLetter.toUpperCase(),
-          unfinishedWord: unfishedWord.toUpperCase()));
     }
     _currentQuestion = _wordQuestions.first.unfinishedWord;
+    _currentWord = _wordQuestions.first.word;
   }
 
   void getWordQuestion() {
@@ -85,6 +136,7 @@ class WordGame extends ChangeNotifier {
     else {
       _currentQuestion =
           _wordQuestions.elementAt(_currentQuestionIndex).unfinishedWord;
+      _currentWord = _wordQuestions.elementAt(_currentQuestionIndex).word;
     }
     notifyListeners();
   }

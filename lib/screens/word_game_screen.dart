@@ -20,7 +20,8 @@ class WordGameScreen extends StatefulWidget {
 }
 
 class _WordGameScreenState extends State<WordGameScreen> {
-  int _numberOfQuestions = 3; //TODO: implement sharedpreferences (user setting)
+  int _numberOfQuestions =
+      10; //TODO: implement sharedpreferences (user setting)
 
   @override
   Widget build(BuildContext context) {
@@ -61,25 +62,40 @@ class _WordGameScreenState extends State<WordGameScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Consumer<WordGame>(
-                builder: (context, data, child) {
-                  return QuestionWidget(
-                    data.currentQuestion ?? '',
+        child: Container(
+          color: Colors.blue,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Consumer<WordGame>(
+                  builder: (context, data, child) {
+                    return Container(
+                        height: 200.0,
+                        width: 200.0,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 2.0),
+                        ),
+                        child: Image.asset(
+                            'assets/word_game_images/${data.currentWord}.png'));
+                  },
+                ),
+                Consumer<WordGame>(
+                  builder: (context, data, child) {
+                    return QuestionWidget(
+                      data.currentQuestion ?? '',
+                    );
+                  },
+                ),
+                Consumer<WordGame>(builder: (context, data, child) {
+                  return Text(
+                    'Question ${data.currentQuestionIndex + 1}/$_numberOfQuestions',
+                    style: TextStyle(fontSize: 30.0),
                   );
-                },
-              ),
-              Consumer<WordGame>(builder: (context, data, child) {
-                return Text(
-                  'Question ${data.currentQuestionIndex + 1}/$_numberOfQuestions',
-                  style: TextStyle(fontSize: 30.0),
-                );
-              }),
-              Canvas(checkAnswer: checkAnswer),
-            ],
+                }),
+                Canvas(checkAnswer: checkAnswer),
+              ],
+            ),
           ),
         ),
       ),
