@@ -1,43 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:text_reg/services/word_game.dart';
 import 'package:text_reg/components/canvas.dart';
+import 'package:text_reg/services/alphabet_number.dart';
 
-class WGS extends StatelessWidget {
+class LS extends StatelessWidget {
+  LS({@required this.type});
+
+  final int type;
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => WordGame(),
-      child: WordGameScreen(),
+      create: (context) => AlphabetAndNumber(),
+      child: LearningScreen(
+        type: type,
+      ),
     );
   }
 }
 
-class WordGameScreen extends StatefulWidget {
+class LearningScreen extends StatefulWidget {
+  LearningScreen({@required this.type});
+
+  final int type;
   @override
-  _WordGameScreenState createState() => _WordGameScreenState();
+  _LearningScreenState createState() => _LearningScreenState();
 }
 
-class _WordGameScreenState extends State<WordGameScreen> {
-  int _numberOfQuestions = 3; //TODO: implement sharedpreferences (user setting)
-
+class _LearningScreenState extends State<LearningScreen> {
   @override
   Widget build(BuildContext context) {
-    WordGame wordGame = Provider.of<WordGame>(context, listen: false);
-    wordGame.generateWordQuestions(_numberOfQuestions);
-
-    print('build screen');
+    AlphabetAndNumber game = Provider.of<AlphabetAndNumber>(context, listen: false);
+    game.setData(widget.type);
+    print(widget.type);
+    game.getFirstElement();
 
     void checkAnswer(String answer) {
-      //callback
-      if (wordGame.checkAnswer(answer)) {
+      if (game.checkAnswer(answer)) {
         print('correct');
-        wordGame.currentQuestionIndex++;
-        wordGame.getWordQuestion();
+        game.currentIndex++;
+        game.getNextElement();
       } else
         print('wrong');
-      if (wordGame.isFinished()) {
+      if (game.isFinished()) {
         Alert(
           context: context,
           title: 'Finished!',
@@ -46,8 +51,7 @@ class _WordGameScreenState extends State<WordGameScreen> {
             DialogButton(
               child: Text('Reset'),
               onPressed: () {
-                wordGame.resetGame();
-                wordGame.generateWordQuestions(_numberOfQuestions);
+                game.resetGame();
                 Navigator.pop(context);
               },
             )
@@ -65,19 +69,11 @@ class _WordGameScreenState extends State<WordGameScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Consumer<WordGame>(
+              Consumer<AlphabetAndNumber>(
                 builder: (context, data, child) {
-                  return QuestionWidget(
-                    data.currentQuestion ?? '',
-                  );
+                  return QuestionWidget('${data.currentElement}');
                 },
               ),
-              Consumer<WordGame>(builder: (context, data, child) {
-                return Text(
-                  'Question ${data.currentQuestionIndex + 1}/$_numberOfQuestions',
-                  style: TextStyle(fontSize: 30.0),
-                );
-              }),
               Canvas(checkAnswer: checkAnswer),
             ],
           ),
@@ -98,7 +94,7 @@ class QuestionWidget extends StatelessWidget {
     return Container(
       child: Text(
         question,
-        style: TextStyle(fontSize: 30.0),
+        style: TextStyle(fontSize: 60.0),
       ),
     );
   }

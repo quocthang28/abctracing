@@ -74,15 +74,12 @@ class _CanvasState extends State<Canvas> {
                       Container(
                         width: kCanvasSize,
                         height: kCanvasSize,
-                        decoration: hint
-                            ? BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/uppercase_letters/A.jpeg'),
-                                  fit: BoxFit.fitHeight,
-                                ),
-                              )
-                            : null,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 10.0,
+                              color: Color.fromRGBO(186, 121, 52, 1.0)),
+                          color: Color.fromRGBO(30, 61, 29, 1.0),
+                        ),
                       ),
                       CustomPaint(
                         size: Size(kCanvasSize, kCanvasSize),
@@ -108,7 +105,7 @@ class _CanvasState extends State<Canvas> {
             FlatButton(
               color: Colors.blue,
               onPressed: () async {
-                _answer = await pcs.getFireBaseVisionResult(_points);
+                _answer = await pcs.getOCRResult(_points);
                 widget.checkAnswer(_answer);
                 print(_answer);
                 _clearCanvas();

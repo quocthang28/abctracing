@@ -48,6 +48,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
+    - assets/buttons/
     - assets/uppercase_letters/
     - assets/lowercase_letters/
   # An image asset can refer to one or more resolution-specific "variants", see

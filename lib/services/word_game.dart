@@ -30,13 +30,19 @@ class WordGame extends ChangeNotifier {
     'Ball',
     'Girl',
     'Bird',
-    'Cat',
     'Bicycle',
     'Chicken',
     'Chair',
     'Table',
     'Door',
-    'Floccinaucinihilipilification'
+    'Phone',
+    'Doctor',
+    'Nurse',
+    'Engineer',
+    'Fire',
+    'Water',
+    'Shirt',
+    //'Floccinaucinihilipilification'
   ];
   Set<WordQuestion> _wordQuestions = {};
   int _currentQuestionIndex = 0;
@@ -60,7 +66,7 @@ class WordGame extends ChangeNotifier {
       word = _words[Random().nextInt(_words.length)];
       position = _ran.nextInt(word.length);
       missingLetter = word.substring(position, position + 1);
-      while (missingLetter == 'o' || missingLetter == 'O' || missingLetter == 'g') {
+      while (missingLetter == 'o' || missingLetter == 'O') {
         position = _ran.nextInt(word.length);
         missingLetter = word.substring(position, position + 1);
       }

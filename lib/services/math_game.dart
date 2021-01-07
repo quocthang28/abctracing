@@ -18,7 +18,6 @@ class MathGame extends ChangeNotifier {
   // ignore: unnecessary_getters_setters
   int get currentQuestionIndex => _currentQuestionIndex;
   String get currentQuestion => _currentQuestion;
-
   // ignore: unnecessary_getters_setters
   set currentQuestionIndex(int currentQuestionIndex) {
     _currentQuestionIndex = currentQuestionIndex;

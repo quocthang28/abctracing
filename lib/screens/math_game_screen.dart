@@ -71,6 +71,12 @@ class _MathGameScreenState extends State<MathGameScreen> {
                   );
                 },
               ),
+              Consumer<MathGame>(builder: (context, data, child) {
+                return Text(
+                  'Question ${data.currentQuestionIndex + 1}/$_numberOfQuestions',
+                  style: TextStyle(fontSize: 30.0),
+                );
+              }),
               Canvas(checkAnswer: checkAnswer),
             ],
           ),
