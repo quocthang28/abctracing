@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  button3d: ^0.1.1
   cupertino_icons: ^1.0.0
   firebase_ml_vision: ^0.9.9
   get_it: ^5.0.1
@@ -48,10 +49,11 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/buttons/
     - assets/uppercase_letters/
     - assets/lowercase_letters/
     - assets/word_game_images/
+    - assets/alphabet_gifs/uppercase/
+    - assets/alphabet_gifs/lowercase/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see

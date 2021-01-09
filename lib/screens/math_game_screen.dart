@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:text_reg/services/math_game.dart';
 import 'package:text_reg/components/canvas.dart';
+import 'package:text_reg/components/question_widget.dart';
 
 class MGS extends StatelessWidget {
   @override
@@ -62,42 +63,22 @@ class _MathGameScreenState extends State<MathGameScreen> {
       body: SafeArea(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Consumer<MathGame>(
-                builder: (context, data, child) {
+                builder: (_, data, __) {
                   return QuestionWidget(
-                    data.currentQuestion ?? '',
+                    question: data.currentQuestion ?? '',
+                    type: 2,
                   );
                 },
               ),
-              Consumer<MathGame>(builder: (context, data, child) {
-                return Text(
-                  'Question ${data.currentQuestionIndex + 1}/$_numberOfQuestions',
-                  style: TextStyle(fontSize: 30.0),
-                );
-              }),
+              SizedBox(height: 100.0),
               Canvas(checkAnswer: checkAnswer),
+              SizedBox(height: 5.0),
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class QuestionWidget extends StatelessWidget {
-  //maybe video, image... (move to components folder)
-  QuestionWidget(this.question);
-
-  final String question;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        question,
-        style: TextStyle(fontSize: 30.0),
       ),
     );
   }

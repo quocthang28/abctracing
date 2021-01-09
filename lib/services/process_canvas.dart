@@ -38,8 +38,8 @@ class ProcessCanvasService {
 
     for (int i = 0; i < points.length - 1; i++) {
       if (points[i] != null && points[i + 1] != null) {
-        canvas.drawLine(points[i] + canvasOffset, points[i + 1] + canvasOffset,
-            kPaint);
+        canvas.drawLine(
+            points[i] + canvasOffset, points[i + 1] + canvasOffset, kPaint);
       }
     }
 

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:text_reg/services/word_game.dart';
 import 'package:text_reg/components/canvas.dart';
+import 'package:text_reg/components/question_widget.dart';
 
 class WGS extends StatelessWidget {
   @override
@@ -63,58 +64,36 @@ class _WordGameScreenState extends State<WordGameScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          color: Colors.blue,
+          color: Colors.amber,
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Consumer<WordGame>(
-                  builder: (context, data, child) {
+                  builder: (_, data, __) {
                     return Container(
                         height: 200.0,
                         width: 200.0,
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 2.0),
-                        ),
                         child: Image.asset(
                             'assets/word_game_images/${data.currentWord}.png'));
                   },
                 ),
+                SizedBox(height: 5.0),
                 Consumer<WordGame>(
-                  builder: (context, data, child) {
+                  builder: (_, data, __) {
                     return QuestionWidget(
-                      data.currentQuestion ?? '',
+                      question: data.currentQuestion ?? '',
+                      type: 1,
                     );
                   },
                 ),
-                Consumer<WordGame>(builder: (context, data, child) {
-                  return Text(
-                    'Question ${data.currentQuestionIndex + 1}/$_numberOfQuestions',
-                    style: TextStyle(fontSize: 30.0),
-                  );
-                }),
+                SizedBox(height: 5.0),
                 Canvas(checkAnswer: checkAnswer),
+                SizedBox(height: 5.0),
               ],
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class QuestionWidget extends StatelessWidget {
-  //maybe video, image...
-  QuestionWidget(this.question);
-
-  final String question;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Text(
-        question,
-        style: TextStyle(fontSize: 30.0),
       ),
     );
   }

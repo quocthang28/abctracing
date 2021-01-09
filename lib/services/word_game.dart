@@ -56,7 +56,7 @@ class WordGame extends ChangeNotifier {
     'Nancy',
     'Number',
     'Orange',
-    'Organization',
+    'Owl',
     'Omnitrix',
     'Phone',
     'Pen',
@@ -68,8 +68,8 @@ class WordGame extends ChangeNotifier {
     'Shirt',
     'Shark',
     'Sun',
-    'Shout'
-        'Table',
+    'Shout',
+    'Table',
     'Truck',
     'Umbrella',
     'Utility',
@@ -84,9 +84,9 @@ class WordGame extends ChangeNotifier {
     'Sun',
     'Zues',
     'Zombie',
-    'Zone',
+    'Zebra',
   ];
-  //List _words = ['Food'];
+  //List _words = ['Owl'];
 
   Set<WordQuestion> _wordQuestions = {};
   int _currentQuestionIndex = 0;
@@ -111,7 +111,6 @@ class WordGame extends ChangeNotifier {
     while (_wordQuestions.length < numOfQuestions) {
       word = _words[_ran.nextInt(_words.length)];
       if (!_wordQuestions.contains(word)) {
-        print(word);
         position = _ran.nextInt(word.length);
         missingLetter = word.substring(position, position + 1);
         while (missingLetter == 'o' || missingLetter == 'O') {

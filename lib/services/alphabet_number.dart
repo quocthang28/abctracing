@@ -2,8 +2,62 @@ import 'package:flutter/material.dart';
 
 class AlphabetAndNumber extends ChangeNotifier {
   List _numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  List _alphabetUpper = ['A', 'B', 'C'];
-  List _alphabetLower = ['a', 'b', 'c'];
+  List _alphabetUpper = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "S",
+    "T",
+    "U",
+    "V",
+    "W",
+    "X",
+    "Y",
+    "Z"
+  ];
+  List _alphabetLower = [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z"
+  ];
   List _data;
   int _currentIndex = 0;
   String _currentElement;

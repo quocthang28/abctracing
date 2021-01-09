@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:button3d/button3d.dart';
 import 'package:get_it/get_it.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:text_reg/utils/constants.dart';
@@ -40,70 +41,77 @@ class _CanvasState extends State<Canvas> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        //canvas
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              width: 3.0,
-              color: Colors.black,
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 3.0,
+                color: Colors.black,
+              ),
             ),
-          ),
-          child: Builder(
-            builder: (BuildContext context) {
-              return GestureDetector(
-                onPanUpdate: (details) {
-                  setState(() {
-                    RenderBox renderBox = context.findRenderObject();
-                    _points
-                        .add(renderBox.globalToLocal(details.globalPosition));
-                  });
-                },
-                onPanStart: (details) {
-                  setState(() {
-                    RenderBox renderBox = context.findRenderObject();
-                    _points
-                        .add(renderBox.globalToLocal(details.globalPosition));
-                  });
-                },
-                onPanEnd: (details) {
-                  _points.add(null);
-                },
-                child: ClipRect(
-                  child: Stack(
-                    children: [
-                      Container(
-                        width: kCanvasSize,
-                        height: kCanvasSize,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 10.0,
-                              color: Color.fromRGBO(186, 121, 52, 1.0)),
-                          color: Color.fromRGBO(30, 61, 29, 1.0),
+            child: Builder(
+              builder: (BuildContext context) {
+                return GestureDetector(
+                  onPanUpdate: (details) {
+                    setState(() {
+                      RenderBox renderBox = context.findRenderObject();
+                      _points
+                          .add(renderBox.globalToLocal(details.globalPosition));
+                    });
+                  },
+                  onPanStart: (details) {
+                    setState(() {
+                      RenderBox renderBox = context.findRenderObject();
+                      _points
+                          .add(renderBox.globalToLocal(details.globalPosition));
+                    });
+                  },
+                  onPanEnd: (details) {
+                    _points.add(null);
+                  },
+                  child: ClipRect(
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: kCanvasSize,
+                          height: kCanvasSize,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 10.0,
+                                color: Color.fromRGBO(186, 121, 52, 1.0)),
+                            color: Color.fromRGBO(30, 61, 29, 1.0),
+                          ),
                         ),
-                      ),
-                      CustomPaint(
-                        size: Size(kCanvasSize, kCanvasSize),
-                        painter: DrawingPainter(
-                          offsetPoints: _points,
+                        CustomPaint(
+                          size: Size(kCanvasSize, kCanvasSize),
+                          painter: DrawingPainter(
+                            offsetPoints: _points,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FlatButton(
-              color: Colors.red,
+            Button3d(
+              style: Button3dStyle.RED,
+              width: 90.0,
+              height: 50.0,
               onPressed: _clearCanvas,
-              child: Icon(Icons.cleaning_services_rounded),
+              child: Icon(Icons.cleaning_services_sharp),
             ),
-            FlatButton(
-              color: Colors.blue,
+            SizedBox(width: 50.0),
+            Button3d(
+              style: Button3dStyle.BLUE,
+              width: 90.0,
+              height: 50.0,
               onPressed: () async {
                 _answer = await pcs.getOCRResult(_points);
                 widget.checkAnswer(_answer);
