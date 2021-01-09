@@ -59,7 +59,12 @@ class _MathGameScreenState extends State<MathGameScreen> {
     }
 
     return Scaffold(
-      body: SafeArea(
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/background/game.jpg"),
+          fit: BoxFit.cover,
+        )),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -71,12 +76,9 @@ class _MathGameScreenState extends State<MathGameScreen> {
                   );
                 },
               ),
-              Consumer<MathGame>(builder: (context, data, child) {
-                return Text(
-                  'Question ${data.currentQuestionIndex + 1}/$_numberOfQuestions',
-                  style: TextStyle(fontSize: 30.0),
-                );
-              }),
+              SizedBox(
+                height: 30.0,
+              ),
               Canvas(checkAnswer: checkAnswer),
             ],
           ),
@@ -95,6 +97,13 @@ class QuestionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(0, 84, 161, 1.0),
+            border: Border.all(
+              width: 4.0,
+              color: Colors.white,
+            ),
+      ),
       child: Text(
         question,
         style: TextStyle(fontSize: 30.0),

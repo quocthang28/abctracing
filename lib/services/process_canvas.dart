@@ -39,7 +39,7 @@ class ProcessCanvasService {
     for (int i = 0; i < points.length - 1; i++) {
       if (points[i] != null && points[i + 1] != null) {
         canvas.drawLine(points[i] + canvasOffset, points[i + 1] + canvasOffset,
-            kPaint);
+            kWhitePaint);
       }
     }
 
@@ -58,20 +58,9 @@ class ProcessCanvasService {
     return imageFilePath;
   }
 
-  //for debug only
-  // String formatBytes(int bytes, int decimals) {
-  //   if (bytes <= 0) return "0 B";
-  //   const suffixes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-  //   var i = (log(bytes) / log(1024)).floor();
-  //   return ((bytes / pow(1024, i)).toStringAsFixed(decimals)) +
-  //       ' ' +
-  //       suffixes[i];
-  // }
-
-  Future<String> getOCRResult(List<Offset> points) async {
+  Future<String> getFireBaseVisionResult(List<Offset> points) async {
     String imageFilePath = await processCanvasPoints(points);
-    //print(formatBytes(File(imageFilePath).lengthSync(), 2));
-    //print(imageFilePath);
+
     final FirebaseVisionImage visionImage =
         FirebaseVisionImage.fromFilePath(imageFilePath);
     final TextRecognizer textRecognizer =

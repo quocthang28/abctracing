@@ -20,8 +20,7 @@ class WordGameScreen extends StatefulWidget {
 }
 
 class _WordGameScreenState extends State<WordGameScreen> {
-  int _numberOfQuestions =
-      10; //TODO: implement sharedpreferences (user setting)
+  int _numberOfQuestions = 3; //TODO: implement sharedpreferences (user setting)
 
   @override
   Widget build(BuildContext context) {
@@ -61,41 +60,25 @@ class _WordGameScreenState extends State<WordGameScreen> {
     }
 
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          color: Colors.blue,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Consumer<WordGame>(
-                  builder: (context, data, child) {
-                    return Container(
-                        height: 200.0,
-                        width: 200.0,
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 2.0),
-                        ),
-                        child: Image.asset(
-                            'assets/word_game_images/${data.currentWord}.png'));
-                  },
-                ),
-                Consumer<WordGame>(
-                  builder: (context, data, child) {
-                    return QuestionWidget(
-                      data.currentQuestion ?? '',
-                    );
-                  },
-                ),
-                Consumer<WordGame>(builder: (context, data, child) {
-                  return Text(
-                    'Question ${data.currentQuestionIndex + 1}/$_numberOfQuestions',
-                    style: TextStyle(fontSize: 30.0),
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/background/game.jpg"),
+          fit: BoxFit.cover,
+        )),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Consumer<WordGame>(
+                builder: (context, data, child) {
+                  return QuestionWidget(
+                    data.currentQuestion ?? '',
                   );
-                }),
-                Canvas(checkAnswer: checkAnswer),
-              ],
-            ),
+                },
+              ),
+              Canvas(checkAnswer: checkAnswer),
+            ],
           ),
         ),
       ),
@@ -112,6 +95,13 @@ class QuestionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(0, 84, 161, 1.0),
+            border: Border.all(
+              width: 4.0,
+              color: Colors.white,
+            ),
+      ),
       child: Text(
         question,
         style: TextStyle(fontSize: 30.0),

@@ -18,6 +18,7 @@ class MathGame extends ChangeNotifier {
   // ignore: unnecessary_getters_setters
   int get currentQuestionIndex => _currentQuestionIndex;
   String get currentQuestion => _currentQuestion;
+
   // ignore: unnecessary_getters_setters
   set currentQuestionIndex(int currentQuestionIndex) {
     _currentQuestionIndex = currentQuestionIndex;
@@ -38,21 +39,24 @@ class MathGame extends ChangeNotifier {
         num2 = _ran.nextInt(10);
       }
       if (operation == 0) {
-        _mathQuestions.add(
-            MathQuestion(question: '$num1 + $num2 = ?', answer: num1 + num2));
+        _mathQuestions.add(MathQuestion(
+            question: '$num1 + $num2 = ?',
+            answer: num1 + num2)); 
       } else if (operation == 1) {
         if (num1 < num2) {
           temp = num1;
           num1 = num2;
           num2 = temp;
         }
-        _mathQuestions.add(
-            MathQuestion(question: '$num1 - $num2 = ?', answer: num1 - num2));
+        _mathQuestions.add(MathQuestion(
+            question: '$num1 - $num2 = ?',
+            answer: num1 - num2)); 
       } else if (operation == 2) {
         if (num1 == 0) num1 = _randomInRange(1, 10);
         if (num2 == 0) num2 = _randomInRange(1, 10);
-        _mathQuestions.add(
-            MathQuestion(question: '$num1 × $num2 = ?', answer: num1 * num2));
+        _mathQuestions.add(MathQuestion(
+            question: '$num1 × $num2 = ?',
+            answer: num1 * num2)); 
       } else if (operation == 3) {
         num1 = _randomInRange(1, 10);
         num2 = _randomInRange(1, 10);
@@ -60,8 +64,9 @@ class MathGame extends ChangeNotifier {
           num1 = _randomInRange(1, 10);
           num2 = _randomInRange(1, 10);
         }
-        _mathQuestions.add(
-            MathQuestion(question: '$num1 ÷ $num2 = ?', answer: num1 ~/ num2));
+        _mathQuestions.add(MathQuestion(
+            question: '$num1 ÷ $num2 = ?',
+            answer: num1 ~/ num2)); 
       }
     }
     _currentQuestion = _mathQuestions.first.question;

@@ -39,13 +39,16 @@ class _CanvasState extends State<Canvas> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         //canvas
         Container(
           decoration: BoxDecoration(
+            color: Color.fromRGBO(0, 84, 161, 1.0),
             border: Border.all(
-              width: 3.0,
-              color: Colors.black,
+              width: 4.0,
+              color: Colors.white,
             ),
           ),
           child: Builder(
@@ -74,12 +77,15 @@ class _CanvasState extends State<Canvas> {
                       Container(
                         width: kCanvasSize,
                         height: kCanvasSize,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 10.0,
-                              color: Color.fromRGBO(186, 121, 52, 1.0)),
-                          color: Color.fromRGBO(30, 61, 29, 1.0),
-                        ),
+                        decoration: hint
+                            ? BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/uppercase_letters/A.jpeg'),
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              )
+                            : null,
                       ),
                       CustomPaint(
                         size: Size(kCanvasSize, kCanvasSize),
@@ -94,6 +100,9 @@ class _CanvasState extends State<Canvas> {
             },
           ),
         ),
+        SizedBox(
+                height: 20.0,
+              ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -101,20 +110,44 @@ class _CanvasState extends State<Canvas> {
               color: Colors.red,
               onPressed: _clearCanvas,
               child: Icon(Icons.cleaning_services_rounded),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
             ),
+            SizedBox(
+                width: 10.0,
+              ),
             FlatButton(
               color: Colors.blue,
               onPressed: () async {
-                _answer = await pcs.getOCRResult(_points);
+                _answer = await pcs.getFireBaseVisionResult(_points);
                 widget.checkAnswer(_answer);
                 print(_answer);
                 _clearCanvas();
               },
               child: Icon(Icons.check),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
             ),
           ],
         ),
       ],
+    );
+  }
+}
+
+class Background extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/background/menu.jpg"),
+          fit: BoxFit.cover,
+        )),
+      ),
     );
   }
 }

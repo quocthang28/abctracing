@@ -5,65 +5,114 @@ class Menu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage("assets/background/menu.jpg"),
+          fit: BoxFit.cover,
+        )),
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               FlatButton.icon(
-                onPressed: () => Navigator.pushNamed(context, '/number'),
-                label: Text('1 2 3'),
-                icon: Icon(Icons.navigate_next),
-              ),
-              FlatButton.icon(
-                onPressed: () => Navigator.pushNamed(context, '/alphabetupper'),
-                label: Text('A B C'),
-                icon: Icon(Icons.navigate_next),
-              ),
-              FlatButton.icon(
-                onPressed: () => Navigator.pushNamed(context, '/alphabetlower'),
-                label: Text('a b c'),
-                icon: Icon(Icons.navigate_next),
-              ),
-              FlatButton.icon(
                 onPressed: () => Navigator.pushNamed(context, '/mathgame'),
-                label: Text('Quick Math'),
-                icon: Icon(Icons.navigate_next),
+                label: Text(
+                  'Quick Math',
+                  style: TextStyle(
+                    fontFamily: "PatrickHand",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.0,
+                    color: Colors.white,
+                  ),
+                ),
+                icon: Icon(
+                  Icons.navigate_next,
+                  size: 40.0,
+                  color: Colors.white,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                color: Color.fromRGBO(15, 204, 181, 1.0),
+                minWidth: 250.0,
+                height: 50.0,
+                padding: EdgeInsets.fromLTRB(0, 0, 85.0, 0),
+              ),
+              SizedBox(
+                height: 15.0,
               ),
               FlatButton.icon(
                 onPressed: () => Navigator.pushNamed(context, '/wordgame'),
-                label: Text('Find Missing Letter'),
-                icon: Icon(Icons.navigate_next),
-              ),
-              MaterialButton(
-                padding: EdgeInsets.all(8.0),
-                textColor: Colors.white,
-                splashColor: Colors.greenAccent,
-                elevation: 8.0,
-                child: Container(
-                  width: 120,
-                  height: 80.0,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/buttons/menu_button_1.jpg'),
-                        fit: BoxFit.contain),
+                label: Text(
+                    'Find Missing Letter',
+                    style: TextStyle(
+                    fontFamily: "PatrickHand",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.0,
+                    color: Colors.white,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "SIGN OUT",
-                      style: TextStyle(color: Colors.black),
-                    ),
+                  ),
+                icon: Icon(
+                  Icons.navigate_next,
+                  size: 40.0,
+                  color: Colors.white,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                color: Color.fromRGBO(23, 170, 217, 1.0),
+                minWidth: 250.0,
+                height: 50.0,
+                padding: EdgeInsets.fromLTRB(0, 0, 20.0, 0),
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              FlatButton.icon(
+                onPressed: () => Navigator.pushNamed(context, '/number'),
+                label: Text(
+                    'Number',
+                    style: TextStyle(
+                    fontFamily: "PatrickHand",
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25.0,
+                    color: Colors.white,
                   ),
                 ),
-                // ),
-                onPressed: () {
-                  print('Tapped');
-                },
+                icon: Icon(
+                  Icons.navigate_next,
+                  size: 40.0,
+                  color: Colors.white,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                color: Color.fromRGBO(227, 61, 24, 1.0),
+                minWidth: 250.0,
+                height: 50.0,
+                padding: EdgeInsets.fromLTRB(0, 0, 105.0, 0),
+              ),
+              SizedBox(
+                height: 180.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left : 338.0),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.black,
+                    //size: 40.0,
+                  ),
+                  onPressed: () => Navigator.pushNamed(context, '/setting'),
+                  iconSize: 40.0,               
+                  //padding: const EdgeInsets.fromLTRB(300.0, 0, 0, 0),
+                  ),
               ),
             ],
           ),
         ),
-      ),
+      ),     
     );
   }
 }
