@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:text_reg/services/word_game.dart';
 import 'package:text_reg/components/canvas.dart';
 import 'package:text_reg/components/question_widget.dart';
@@ -21,8 +22,20 @@ class WordGameScreen extends StatefulWidget {
 }
 
 class _WordGameScreenState extends State<WordGameScreen> {
-  int _numberOfQuestions =
-      10; //TODO: implement sharedpreferences (user setting)
+  int _numberOfQuestions; //TODO: implement sharedpreferences (user setting)
+
+  Future<void> getNumofQuestions() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _numberOfQuestions = prefs.getInt('num_of_word_questions') ?? 5;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getNumofQuestions();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +55,8 @@ class _WordGameScreenState extends State<WordGameScreen> {
       if (wordGame.isFinished()) {
         Alert(
           context: context,
-          title: 'Finished!',
-          desc: 'All done!',
+          title: 'Good job!',
+          desc: 'You have answered all questions corectly!',
           buttons: [
             DialogButton(
               child: Text('Reset'),
@@ -64,7 +77,12 @@ class _WordGameScreenState extends State<WordGameScreen> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          color: Colors.amber,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/game_background.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -74,6 +92,9 @@ class _WordGameScreenState extends State<WordGameScreen> {
                     return Container(
                         height: 200.0,
                         width: 200.0,
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 2.0),
+                        ),
                         child: Image.asset(
                             'assets/word_game_images/${data.currentWord}.png'));
                   },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:text_reg/services/math_game.dart';
 import 'package:text_reg/components/canvas.dart';
 import 'package:text_reg/components/question_widget.dart';
@@ -21,7 +22,20 @@ class MathGameScreen extends StatefulWidget {
 }
 
 class _MathGameScreenState extends State<MathGameScreen> {
-  int _numberOfQuestions = 3; //TODO: implement sharedpreferences (user setting)
+  int _numberOfQuestions;
+
+  Future<void> getNumofQuestions() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _numberOfQuestions = prefs.getInt('num_of_math_questions') ?? 5;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getNumofQuestions();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +54,8 @@ class _MathGameScreenState extends State<MathGameScreen> {
       if (mathGame.isFinished()) {
         Alert(
           context: context,
-          title: 'Finished!',
-          desc: 'All done!',
+          title: 'Good job!',
+          desc: 'You have answered all questions corectly!',
           buttons: [
             DialogButton(
               child: Text('Reset'),
@@ -53,30 +67,36 @@ class _MathGameScreenState extends State<MathGameScreen> {
             )
           ],
         ).show();
-        //TODO: Use then() with alert dialog
         print('done');
-        //show result, navigator.push to resultscreen(play again(reset game) or back to menu)
       }
     }
 
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Consumer<MathGame>(
-                builder: (_, data, __) {
-                  return QuestionWidget(
-                    question: data.currentQuestion ?? '',
-                    type: 2,
-                  );
-                },
-              ),
-              SizedBox(height: 100.0),
-              Canvas(checkAnswer: checkAnswer),
-              SizedBox(height: 5.0),
-            ],
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/game_background.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Consumer<MathGame>(
+                  builder: (_, data, __) {
+                    return QuestionWidget(
+                      question: data.currentQuestion ?? '',
+                      type: 2,
+                    );
+                  },
+                ),
+                SizedBox(height: 80.0),
+                Canvas(checkAnswer: checkAnswer),
+                SizedBox(height: 15.0),
+              ],
+            ),
           ),
         ),
       ),

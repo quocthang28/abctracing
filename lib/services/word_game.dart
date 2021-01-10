@@ -1,14 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/foundation.dart';
-
-class WordQuestion {
-  WordQuestion({this.word, this.missingLetter, this.unfinishedWord});
-
-  final String word;
-  final String missingLetter;
-  final String unfinishedWord;
-}
+import 'package:text_reg/models/word_question.dart';
 
 Random _ran = Random();
 

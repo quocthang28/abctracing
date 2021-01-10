@@ -1,12 +1,6 @@
 import 'dart:math';
 import 'package:flutter/foundation.dart';
-
-class MathQuestion {
-  MathQuestion({this.question, this.answer});
-
-  final String question;
-  final int answer;
-}
+import 'package:text_reg/models/math_question.dart';
 
 Random _ran = Random();
 int _randomInRange(int min, int max) => min + _ran.nextInt(max - min);

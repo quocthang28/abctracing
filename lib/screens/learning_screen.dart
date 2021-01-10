@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:text_reg/components/canvas.dart';
-import 'package:text_reg/components/video_widget.dart';
-import 'package:text_reg/services/alphabet_number.dart';
+import 'package:text_reg/components/gif_widget.dart';
+import 'package:text_reg/services/learning_game.dart';
 
 class LS extends StatelessWidget {
   LS({@required this.type});
@@ -13,7 +13,7 @@ class LS extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => AlphabetAndNumber(),
+      create: (context) => LearningGame(),
       child: LearningScreen(type: type),
     );
   }
@@ -31,13 +31,12 @@ class LearningScreen extends StatefulWidget {
 class _LearningScreenState extends State<LearningScreen> {
   @override
   Widget build(BuildContext context) {
-    AlphabetAndNumber game =
-        Provider.of<AlphabetAndNumber>(context, listen: false);
+    LearningGame game = Provider.of<LearningGame>(context, listen: false);
     game.setData(widget.type);
     game.getFirstElement();
 
     void checkAnswer(String answer) {
-      if (game.checkAnswer(answer)) {
+      if (game.checkAnswer(answer, widget.type)) {
         print('correct');
         game.currentIndex++;
         game.getNextElement();
@@ -46,8 +45,8 @@ class _LearningScreenState extends State<LearningScreen> {
       if (game.isFinished()) {
         Alert(
           context: context,
-          title: 'Finished!',
-          desc: 'All done!',
+          title: 'Good job!',
+          desc: 'You have answered all questions corectly!',
           buttons: [
             DialogButton(
               child: Text('Reset'),
@@ -66,22 +65,32 @@ class _LearningScreenState extends State<LearningScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Consumer<AlphabetAndNumber>(
-                builder: (_, data, __) {
-                  return VideoWidget(
-                    fileName: data.currentElement,
-                    type: widget.type,
-                  );
-                },
-              ),
-              SizedBox(height: 10.0),
-              Canvas(checkAnswer: checkAnswer),
-              SizedBox(height: 5.0),
-            ],
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/game_background.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Consumer<LearningGame>(
+                  builder: (_, data, __) {
+                    return data.currentElement == 'Done!'
+                        ? Text('Done!')
+                        : GIFWidget(
+                            fileName: data.currentElement,
+                            type: widget.type,
+                          );
+                  },
+                ),
+                SizedBox(height: 10.0),
+                Canvas(checkAnswer: checkAnswer),
+                SizedBox(height: 5.0),
+              ],
+            ),
           ),
         ),
       ),
