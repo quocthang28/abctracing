@@ -16,7 +16,7 @@ class QuestionWidget extends StatelessWidget {
     int b = ran.nextInt(256);
     return type == 1
         ? Color.fromARGB(255, r, g, b)
-        : Color.fromRGBO(r, b, g, 0.8);
+        : Color.fromRGBO(r, b, g, 0.9);
   }
 
   @override
@@ -34,7 +34,7 @@ class QuestionWidget extends StatelessWidget {
         child: Text(
           question,
           style: TextStyle(
-              fontSize: type == 1 ? 60.0 : 90.0,
+              fontSize: type == 1 ? 60.0 : 75.0,
               fontWeight: FontWeight.bold,
               color: Colors.white),
         ),

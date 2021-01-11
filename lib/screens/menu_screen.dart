@@ -37,7 +37,7 @@ class Menu extends StatelessWidget {
                 width: 140.0,
                 height: 50.0,
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: 25.0),
               MenuButton(
                 title: 'A B C',
                 routeName: '/alphabetupper',
@@ -46,7 +46,7 @@ class Menu extends StatelessWidget {
                 width: 140.0,
                 height: 50.0,
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: 25.0),
               MenuButton(
                 title: 'a b c',
                 routeName: '/alphabetlower',
@@ -55,7 +55,7 @@ class Menu extends StatelessWidget {
                 width: 140.0,
                 height: 50.0,
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: 25.0),
               MenuButton(
                 title: 'Quick Math',
                 routeName: '/mathgame',
@@ -65,7 +65,7 @@ class Menu extends StatelessWidget {
                 height: 60.0,
                 textStyle: kMenuButtonTextStyle2,
               ),
-              SizedBox(height: 20.0),
+              SizedBox(height: 25.0),
               MenuButton(
                 title: 'Missing Letter',
                 routeName: '/wordgame',
@@ -76,16 +76,18 @@ class Menu extends StatelessWidget {
                 textStyle: kMenuButtonTextStyle2,
               ),
               SizedBox(height: 40.0),
-              Padding(
-                padding: const EdgeInsets.only(left: 320.0),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.settings,
-                    color: Colors.brown[800],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    icon: Icon(
+                      Icons.settings,
+                      color: Colors.brown[800],
+                    ),
+                    onPressed: () => Navigator.pushNamed(context, '/settings'),
+                    iconSize: 60.0,
                   ),
-                  onPressed: () => Navigator.pushNamed(context, '/settings'),
-                  iconSize: 60.0,
-                ),
+                ],
               ),
             ],
           ),
